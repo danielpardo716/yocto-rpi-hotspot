@@ -1,0 +1,32 @@
+repos:
+  poky:
+    url: "https://git.yoctoproject.org/git/poky"
+    refspec: "kirkstone"
+
+  meta-raspberrypi:
+    url: "https://github.com/agherzan/meta-raspberrypi.git"
+    refspec: "kirkstone"
+    layers:
+      meta-raspberrypi:
+
+  meta-hotspot:
+    path: layers/meta-hotspot
+    layers:
+      meta-hotspot:
+
+machine: "raspberrypi0-wifi"
+
+distro: "poky"
+
+target:
+  - core-image-base
+
+local_conf_header:
+  hotspot: |
+  # Use 4 threads for faster builds
+  BB_NUMBER_THREADS = "4"
+  PARALLEL_NAME = "-j 4"
+  PACKAGE_CLASSES ?= "package_rpm"
+
+  # Disable test features
+  IMAGE_FEATURES:remove = "ptest"
